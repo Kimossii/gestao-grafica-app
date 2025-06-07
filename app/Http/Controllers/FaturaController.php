@@ -127,7 +127,7 @@ class FaturaController extends Controller
 
     public function faturaListar()
     {
-        $faturas = Fatura::where('tipo', 'fatura')
+        $faturas = Fatura::where('status', 'pendente')->where('tipo', 'fatura')
             ->with(['cliente', 'itens.item'])
             ->orderByDesc('created_at')
             ->paginate(10);
@@ -164,5 +164,48 @@ class FaturaController extends Controller
         $pdf = Pdf::loadView('pages.faturas.faturarecibo.pdf', compact('fatura'));
         return $pdf->stream("fatura-{$fatura->numero}.pdf");
 
+    }
+
+    //Recibo das faturas já feitas
+    public function reciboListar(){
+         $faturas = Fatura::where('status', 'pendente')->where('tipo', 'fatura')
+            ->with(['cliente', 'itens.item'])
+            ->orderByDesc('created_at')
+            ->paginate(10);
+        return view('pages.faturas.recibo.list', compact('faturas'));
+    }
+    public function reciboDetalhe($id)
+    {
+        $fatura = Fatura::with(['cliente', 'itens.item'])->findOrFail($id);
+        return view('pages.faturas.recibo.detalhe', compact('fatura'));
+    }
+    public function reciboPagar($id)
+    {
+        $fatura = Fatura::with(['cliente', 'itens.item'])->findOrFail($id);
+        if ($fatura->status !== 'pendente') {
+            return redirect()->route('faturas.recibo.listar')->with('error', 'Fatura não está pendente para pagamento.');
+        }
+        return view('pages.faturas.recibo.pagar', compact('fatura'));
+    }
+    public function reciboStore(Request $request, $id)
+    {
+        $request->validate([
+            'metodo_pagamento' => 'required|string|max:255',
+        ]);
+
+        $fatura = Fatura::findOrFail($id);
+        if ($fatura->status !== 'pendente') {
+            return redirect()->route('faturas.recibo.listar')->with('error', 'Fatura não está pendente para pagamento.');
+        }
+
+        $fatura->update([
+            'tipo' => 'fatura-recibo',
+            'metodo_pagamento' => $request->metodo_pagamento,
+            'status' => 'pago',
+            'data_emissao' => Carbon::now(),
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('faturas.faturarecibo.detalhe',$id)->with('success', 'Fatura paga com sucesso!');
     }
 }

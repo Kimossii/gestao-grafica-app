@@ -28,7 +28,7 @@
         </svg>
         <div class="alert-text">
             <strong>Olá, {{ Auth::user()->name }}!</strong><br>
-            Seja bem-vindo(a) ao sistema de gestão da gráfica. Agora você está autenticado com sucesso.
+            Seja bem-vindo(a) ao sistema de gestão da gráfica. Desfute as Funcionalida e Agilidade no Processo.
         </div>
     </div>
 </div>

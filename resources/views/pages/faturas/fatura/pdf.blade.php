@@ -18,7 +18,7 @@
 
     <p><strong>Cliente:</strong> {{ $fatura->cliente->nome ?? 'N/A' }}</p>
     <p><strong>Data de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->data_emissao)->format('d/m/Y') }}</p>
-    <p><strong>Hora de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->data_emissao)->format('H:m') }}</p>
+    <p><strong>Hora de Emissão:</strong>{{ \Carbon\Carbon::parse($fatura->updated_at)->addHour()->format('H:i') }}</p>
     <p><strong>Estado:</strong> {{ ucfirst($fatura->status) }}</p>
 
     <table>

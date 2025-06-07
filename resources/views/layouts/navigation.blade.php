@@ -49,11 +49,13 @@
                         {{ __('Fluxo de Caixa') }}
                     </x-nav-link>
                 </div>
+               @if (auth()->user()->perfil === 'admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href=" route('usuarios.listar')" :active="request()->routeIs('usuarios.listar') || request()->routeIs('usuarios.cadastrar') || request()->routeIs('usuarios.editar')">
                         {{ __('Usuários') }}
                     </x-nav-link>
                 </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
@@ -72,7 +74,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('usuarios.editar', Auth::user()->id)">
                             {{ __('Perfil') }}
                         </x-dropdown-link>
 
@@ -83,7 +85,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Sair') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>

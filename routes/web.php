@@ -74,6 +74,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/faturas/fatura-recibo/detalhe/{id}', [FaturaController::class, 'faturaReciboDetalhe'])->name('faturas.faturarecibo.detalhe');
     Route::get('/fatura-recibo/{fatura}/pdf', [FaturaController::class, 'gerarFaturarecibo'])->name('faturas.faturarecibo.pdf');
 
+    //Recibos
+    Route::get('/faturas/recibo/listar', [FaturaController::class, 'reciboListar'])->name('faturas.recibo.listar');
+    Route::get('/faturas/recibo/detalhe/{id}', [FaturaController::class, 'reciboDetalhe'])->name('faturas.recibo.detalhe');
+    Route::get('/faturas/recibo/pagar/{id}', [FaturaController::class, 'reciboPagar'])->name('faturas.recibo.pagar');
+    Route::post('/faturas/recibo/store/{id}', [FaturaController::class, 'reciboStore'])->name('faturas.recibo.store');
+
+
     //Usuarios
     Route::get('/usurios/cadastrar', [UsuarioController::class, 'cadastrar'])->name('usuarios.cadastrar');
     Route::get('/usuarios/listar', [UsuarioController::class, 'index'])->name('usuarios.listar');

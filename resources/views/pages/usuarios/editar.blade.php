@@ -37,17 +37,20 @@
                 <input type="email" name="email" id="email" value="{{ old('email', $usuario->email) }}" required
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
             </div>
-
-            <div>
-                <label for="perfil" class="block text-sm font-medium text-gray-700">Perfil</label>
-                <select name="perfil" id="perfil"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
-                    <option value="">Selecione</option>
-                    <option value="vendedor" {{ old('perfil', $usuario->perfil) == 'vendedor' ? 'selected' : '' }}>Vendedor</option>
-                    <option value="admin" {{ old('perfil', $usuario->perfil) == 'admin' ? 'selected' : '' }}>Admin</option>
-                </select>
-            </div>
-
+            @if (auth()->user()->perfil === 'admin')
+                <div>
+                    <label for="perfil" class="block text-sm font-medium text-gray-700">Perfil</label>
+                    <select name="perfil" id="perfil"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        required>
+                        <option value="">Selecione</option>
+                        <option value="vendedor" {{ old('perfil', $usuario->perfil) == 'vendedor' ? 'selected' : '' }}>
+                            Vendedor</option>
+                        <option value="admin" {{ old('perfil', $usuario->perfil) == 'admin' ? 'selected' : '' }}>Admin
+                        </option>
+                    </select>
+                </div>
+            @endif
             <div>
                 <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
                 <input type="text" name="telefone" id="telefone" value="{{ old('telefone', $usuario->telefone) }}"
@@ -60,14 +63,17 @@
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     placeholder="Deixe em branco para não alterar">
             </div>
+             @if (auth()->user()->perfil === 'admin')
             <div>
                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                 <select name="status" id="status"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     <option value="ativo" {{ old('status', $usuario->status) == 'ativo' ? 'selected' : '' }}>Ativo</option>
-                    <option value="inativo" {{ old('status', $usuario->status) == 'inativo' ? 'selected' : '' }}>Inativo</option>
+                    <option value="inativo" {{ old('status', $usuario->status) == 'inativo' ? 'selected' : '' }}>Inativo
+                    </option>
                 </select>
             </div>
+             @endif
             <button type="submit"
                 class="inline-flex justify-center py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200">
                 Salvar

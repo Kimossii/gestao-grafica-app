@@ -22,7 +22,7 @@ class FluxoCaixaController extends Controller
         $totais = [];
 
         foreach ($periodos as $nome => $dataInicial) {
-            $totais[$nome] = Fatura::whereDate('created_at', '>=', $dataInicial)->sum('total');
+            $totais[$nome] = Fatura::where('tipo', 'fatura-recibo')->where('status', 'pago')->whereDate('updated_at', '>=', $dataInicial)->sum('total');
         }
 
         return view('pages.caixa.index', compact('totais'));

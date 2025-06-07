@@ -3,37 +3,20 @@
 @section('content')
     <div class="max-w-5xl mx-auto py-6">
         <div class="bg-white p-6 rounded shadow">
-            <a href="{{ route('faturas.faturarecibo.pdf', $fatura->id) }}" target="_blank"
+            <a href="{{route('faturas.recibo.pagar',$fatura->id)}}"
                 class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Imprimir Fatura
+                Imprimir Recibo
             </a>
-            @if ($errors->any())
-                <div class="mb-4 p-4 bg-red-100 text-red-600 rounded">
-                    <ul class="list-disc pl-5">
-                        @foreach ($errors->all() as $erro)
-                            <li>{{ $erro }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
-            @if (session('success'))
-                <div class="mb-4 p-4 bg-green-100 text-green-600 rounded">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            <h2 class="text-2xl font-bold mb-4">Detalhes da Fatura Recibo- {{ $fatura->numero }}</h2>
+            <h2 class="text-2xl font-bold mb-4">Detalhes da Fatura - {{ $fatura->numero }}</h2>
 
             <div class="mb-6 space-y-2">
                 <p><strong>Cliente:</strong> {{ $fatura->cliente->nome ?? 'N/A' }}</p>
-                <p><strong>Data de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->data_emissao)->format('d/m/Y') }}</p>
-                <p><strong>Hora de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->updated_at)->addHour()->format('H:i') }}
-
+                <p><strong>Data de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->created)->format('d/m/Y') }}
                 </p>
-                <p><strong>Método de Pagamento:</strong> {{ ucfirst($fatura->metodo_pagamento) }}</p>
+                <p><strong>Hora de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->created)->format('H:m') }}
+                </p>
                 <p><strong>Estado:</strong> {{ ucfirst($fatura->status) }}</p>
-
             </div>
 
             <h3 class="text-xl font-semibold mb-2">Itens da Fatura</h3>
