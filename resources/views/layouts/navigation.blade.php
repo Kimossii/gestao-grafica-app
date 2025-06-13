@@ -49,6 +49,11 @@
                         {{ __('Fluxo de Caixa') }}
                     </x-nav-link>
                 </div>
+                  <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href=" route('contas.index')" :active="request()->routeIs('contas.index')">
+                        {{ __('Contas') }}
+                    </x-nav-link>
+                </div>
                @if (auth()->user()->perfil === 'admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href=" route('usuarios.listar')" :active="request()->routeIs('usuarios.listar') || request()->routeIs('usuarios.cadastrar') || request()->routeIs('usuarios.editar')">
@@ -56,6 +61,7 @@
                     </x-nav-link>
                 </div>
                 @endif
+
             </div>
 
             <!-- Settings Dropdown -->

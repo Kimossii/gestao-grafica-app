@@ -39,7 +39,7 @@
                                     <td class="px-4 py-2 border font-semibold">{{ $fatura->numero }}</td>
                                     <td class="px-4 py-2 border">{{ $fatura->cliente->nome ?? 'N/A' }}</td>
                                     <td class="px-4 py-2 border">
-                                        {{ \Carbon\Carbon::parse($fatura->created_at)->format('d/m/Y-H:m') }}min</td>
+                                       {{ \Carbon\Carbon::parse($fatura->updated_at)->addHour()->format('d/m/Y-H:i') }}</td>
                                     <td class="px-4 py-2 border">{{ number_format($fatura->total, 2, ',', '.') }} KZ</td>
                                     <td class="px-4 py-2 border">{{ ucfirst($fatura->status) }}</td>
                                     <td class="px-4 py-2 border">{{ $fatura->user->name ?? 'N/A' }}</td>

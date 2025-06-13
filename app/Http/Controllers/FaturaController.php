@@ -11,6 +11,7 @@ use App\Models\FaturaItem;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class FaturaController extends Controller
 {
@@ -194,6 +195,8 @@ class FaturaController extends Controller
         ]);
 
         $fatura = Fatura::findOrFail($id);
+        $numero = Str::after($fatura->numero, '-');
+        $numeroAgora = 'FR-'.$numero;
         if ($fatura->status !== 'pendente') {
             return redirect()->route('faturas.recibo.listar')->with('error', 'Fatura não está pendente para pagamento.');
         }
@@ -204,6 +207,7 @@ class FaturaController extends Controller
             'status' => 'pago',
             'data_emissao' => Carbon::now(),
             'user_id' => auth()->id(),
+            'numero' => $numeroAgora,
         ]);
 
         return redirect()->route('faturas.faturarecibo.detalhe',$id)->with('success', 'Fatura paga com sucesso!');

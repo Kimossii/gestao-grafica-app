@@ -3,7 +3,8 @@
 use App\Http\Controllers\ProfileController, App\Http\Controllers\ClienteController,
 App\Http\Controllers\FornecedorController, App\Http\Controllers\FaturaController,
 App\Http\Controllers\ProdutoController, App\Http\Controllers\ServicoController,
-App\Http\Controllers\UsuarioController,App\Http\Controllers\FluxoCaixaController;
+App\Http\Controllers\UsuarioController,App\Http\Controllers\FluxoCaixaController,
+App\Http\Controllers\ContaReceberController, App\Http\Controllers\ContaPagarController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -80,6 +81,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/faturas/recibo/pagar/{id}', [FaturaController::class, 'reciboPagar'])->name('faturas.recibo.pagar');
     Route::post('/faturas/recibo/store/{id}', [FaturaController::class, 'reciboStore'])->name('faturas.recibo.store');
 
+    //Contas a Receber
+    Route::get('/contas-a-receber/contas-a-pagar', [ContaReceberController::class, 'indexContas'])->name('contas.index');
+    Route::get('/contas-a-receber/cadastrar', [ContaReceberController::class, 'cadastrar'])->name('contas.cadastrar.receber');
+    Route::post('/contas-a-receber/store', [ContaReceberController::class, 'store'])->name('contas.store.receber');
+    Route::get('/contas-a-receber/listar', [ContaReceberController::class, 'index'])->name('contas.listar.receber');
+    Route::get('/contas-a-receber/detalhe/{id}', [ContaReceberController::class, 'detalhe'])->name('contas.detalhe.receber');
+    Route::get('/contas-a-receber/editar/{id}', [ContaReceberController::class, 'editar'])->name('contas.editar.receber');
+    Route::put('/contas-a-receber/update/{id}', [ContaReceberController::class, 'update'])->name('contas.update.receber');
+    Route::delete('/contas-a-receber/excluir/{id}', [ContaReceberController::class, 'destroy'])->name('contas.excluir.receber');
+
+    //Contas a Pagar
+    Route::get('/contas-a-pagar/contas-a-receber', [ContaPagarController::class, 'index'])->name('contas.index.pagar');
+    Route::get('/contas-a-pagar/cadastrar', [ContaPagarController::class, 'cadastrar'])->name('contas.cadastrar.pagar');
+    Route::post('/contas-a-pagar/store', [ContaPagarController::class, 'store'])->name('contas.store.pagar');
+    Route::get('/contas-a-pagar/listar', [ContaPagarController::class, 'index'])->name('contas.listar.pagar');
+    Route::get('/contas-a-pagar/detalhe/{id}', [ContaPagarController::class, 'detalhe'])->name('contas.detalhe.pagar');
+    Route::get('/contas-a-pagar/editar/{id}', [ContaPagarController::class, 'editar'])->name('contas.editar.pagar');
+    Route::put('/contas-a-pagar/update/{id}', [ContaPagarController::class, 'update'])->name('contas.update.pagar');
+    Route::delete('/contas-a-pagar/excluir/{id}', [ContaPagarController::class, 'destroy'])->name('contas.excluir.pagar');
 
     //Usuarios
     Route::get('/usurios/cadastrar', [UsuarioController::class, 'cadastrar'])->name('usuarios.cadastrar');

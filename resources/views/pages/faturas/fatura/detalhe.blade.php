@@ -12,9 +12,9 @@
 
             <div class="mb-6 space-y-2">
                 <p><strong>Cliente:</strong> {{ $fatura->cliente->nome ?? 'N/A' }}</p>
-                <p><strong>Data de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->created)->format('d/m/Y') }}
+                <p><strong>Data de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->updated_at)->format('d/m/Y') }}
                 </p>
-                <p><strong>Hora de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->created)->format('H:m') }}
+                <p><strong>Hora de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->updated_at)->addHour()->format('H:i') }}
                 </p>
                 <p><strong>Estado:</strong> {{ ucfirst($fatura->status) }}</p>
             </div>
