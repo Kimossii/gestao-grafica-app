@@ -3,6 +3,23 @@
 @section('content')
     <div class="max-w-5xl mx-auto py-6">
         <div class="bg-white p-6 rounded shadow">
+            @if ($errors->any())
+                <div class="mb-4 p-4 bg-red-100 text-red-600 rounded">
+                    <ul class="list-disc pl-5">
+                        @foreach ($errors->all() as $erro)
+                            <li>{{ $erro }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="mb-4 p-4 bg-green-100 text-green-600 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+
             <a href="{{ route('faturas.fatura.pdf', $fatura->id) }}" target="_blank"
                 class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                 Imprimir Fatura
@@ -14,7 +31,8 @@
                 <p><strong>Cliente:</strong> {{ $fatura->cliente->nome ?? 'N/A' }}</p>
                 <p><strong>Data de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->updated_at)->format('d/m/Y') }}
                 </p>
-                <p><strong>Hora de Emissão:</strong> {{ \Carbon\Carbon::parse($fatura->updated_at)->addHour()->format('H:i') }}
+                <p><strong>Hora de Emissão:</strong>
+                    {{ \Carbon\Carbon::parse($fatura->updated_at)->addHour()->format('H:i') }}
                 </p>
                 <p><strong>Estado:</strong> {{ ucfirst($fatura->status) }}</p>
             </div>
@@ -41,7 +59,8 @@
                                 <td class="px-4 py-2 border">{{ ucfirst($tipo) }}</td>
                                 <td class="px-4 py-2 border">{{ $item->nome ?? 'Item removido' }}</td>
                                 <td class="px-4 py-2 border">{{ $item->quantidade }}</td>
-                                <td class="px-4 py-2 border">{{ number_format($item->preco_unitario, 2, ',', '.') }} KZ</td>
+                                <td class="px-4 py-2 border">{{ number_format($item->preco_unitario, 2, ',', '.') }} KZ
+                                </td>
                                 <td class="px-4 py-2 border font-semibold">
                                     {{ number_format($item->subtotal, 2, ',', '.') }} KZ</td>
                             </tr>

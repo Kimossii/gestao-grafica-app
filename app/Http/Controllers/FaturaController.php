@@ -37,18 +37,28 @@ class FaturaController extends Controller
     }
     public function faturaStore(Request $request)
     {
+
         $request->validate([
             'cliente_id' => 'required|exists:clientes,id',
             'itens' => 'required|array|min:1',
+            'itens.*.id' => 'required',
             'total' => 'required|numeric|min:0',
+        ], [
+            'cliente_id.required' => 'O cliente é obrigatório.',
+            'cliente_id.exists' => 'O cliente selecionado não é válido.',
+            'itens.required' => 'Você deve adicionar pelo menos um item.',
+            'itens.*.id.required' => 'Você deve selecionar um produto ou serviço em cada item.',
+            'total.required' => 'O total é obrigatório.',
+            'total.numeric' => 'O total deve ser um número.',
+            'total.min' => 'O total não pode ser negativo.',
         ]);
 
         $dataAtual = Carbon::now();
-        // Gerar número sequencial
-        $ultimoNumero = Fatura::max('id'); // ou use max('numero') se for numérico
-        $numeroFatura = 'FT-' . str_pad($ultimoNumero + 1, 5, '0', STR_PAD_LEFT); // Ex: FT-00001
 
-        // Criar a fatura
+        $ultimoNumero = Fatura::max('id');
+        $numeroFatura = 'FT-' . str_pad($ultimoNumero + 1, 5, '0', STR_PAD_LEFT);
+
+
         $fatura = Fatura::create([
             'cliente_id' => $request->cliente_id,
             'numero' => $numeroFatura,
@@ -59,7 +69,7 @@ class FaturaController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        // Criar os itens
+
         foreach ($request->itens as $item) {
             $tipo = $item['tipo'];
             $id = explode('-', $item['id'])[1] ?? null;
@@ -77,7 +87,7 @@ class FaturaController extends Controller
         }
 
 
-        return redirect()->route('faturas.fatura.cadastrar')->with('success', 'Fatura criada com sucesso!');
+        return redirect()->route('faturas.fatura.detalhe', $fatura->id)->with('success', 'Fatura criada com sucesso!');
     }
 
     public function faturaReciboStore(Request $request)
@@ -85,15 +95,24 @@ class FaturaController extends Controller
         $request->validate([
             'cliente_id' => 'required|exists:clientes,id',
             'itens' => 'required|array|min:1',
+            'itens.*.id' => 'required',
             'total' => 'required|numeric|min:0',
+        ], [
+            'cliente_id.required' => 'O cliente é obrigatório.',
+            'cliente_id.exists' => 'O cliente selecionado não é válido.',
+            'itens.required' => 'Você deve adicionar pelo menos um item.',
+            'itens.*.id.required' => 'Você deve selecionar um produto ou serviço em cada item.',
+            'total.required' => 'O total é obrigatório.',
+            'total.numeric' => 'O total deve ser um número.',
+            'total.min' => 'O total não pode ser negativo.',
         ]);
 
         $dataAtual = Carbon::now();
-        // Gerar número sequencial
-        $ultimoNumero = Fatura::max('id'); // ou use max('numero') se for numérico
-        $numeroFatura = 'FR-' . str_pad($ultimoNumero + 1, 5, '0', STR_PAD_LEFT); // Ex: FT-00001
 
-        // Criar a fatura
+        $ultimoNumero = Fatura::max('id');
+        $numeroFatura = 'FR-' . str_pad($ultimoNumero + 1, 5, '0', STR_PAD_LEFT);
+
+
         $fatura = Fatura::create([
             'cliente_id' => $request->cliente_id,
             'numero' => $numeroFatura,
@@ -105,7 +124,7 @@ class FaturaController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        // Criar os itens
+
         foreach ($request->itens as $item) {
             $tipo = $item['tipo'];
             $id = explode('-', $item['id'])[1] ?? null;
@@ -123,7 +142,7 @@ class FaturaController extends Controller
         }
 
 
-        return redirect()->route('faturas.faturarecibo.cadastrar')->with('success', 'Fatura Recibo criada com sucesso!');
+        return redirect()->route('faturas.faturarecibo.detalhe', $fatura->id)->with('success', 'Fatura Recibo criada com sucesso!');
     }
 
     public function faturaListar()
@@ -167,9 +186,10 @@ class FaturaController extends Controller
 
     }
 
-    //Recibo das faturas já feitas
-    public function reciboListar(){
-         $faturas = Fatura::where('status', 'pendente')->where('tipo', 'fatura')
+
+    public function reciboListar()
+    {
+        $faturas = Fatura::where('status', 'pendente')->where('tipo', 'fatura')
             ->with(['cliente', 'itens.item'])
             ->orderByDesc('created_at')
             ->paginate(10);
@@ -196,7 +216,7 @@ class FaturaController extends Controller
 
         $fatura = Fatura::findOrFail($id);
         $numero = Str::after($fatura->numero, '-');
-        $numeroAgora = 'FR-'.$numero;
+        $numeroAgora = 'FR-' . $numero;
         if ($fatura->status !== 'pendente') {
             return redirect()->route('faturas.recibo.listar')->with('error', 'Fatura não está pendente para pagamento.');
         }
@@ -210,6 +230,6 @@ class FaturaController extends Controller
             'numero' => $numeroAgora,
         ]);
 
-        return redirect()->route('faturas.faturarecibo.detalhe',$id)->with('success', 'Fatura paga com sucesso!');
+        return redirect()->route('faturas.faturarecibo.detalhe', $id)->with('success', 'Fatura paga com sucesso!');
     }
 }

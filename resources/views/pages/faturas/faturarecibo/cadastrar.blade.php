@@ -45,7 +45,7 @@
                             <option value="servico">Serviço</option>
                         </select>
 
-                        <select class="item-select border rounded" name="itens[0][id]">
+                        <select class="item-select border rounded" name="itens[0][id]" required>
                             <option value="">Selecione</option>
                             @foreach ($produtos as $produto)
                                 <option value="produto-{{ $produto->id }}" data-tipo="produto"
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="mt-6 text-right">
-                    <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded">Emitir Fatura</button>
+                    <button type="button" id="confirmar-envio" class="bg-green-600 text-white px-6 py-2 rounded">Emitir Fatura</button>
                 </div>
             </form>
         </div>
@@ -187,4 +187,5 @@
 
         document.querySelectorAll('.item-row').forEach(row => aplicarEventos(row));
     </script>
+     <script src="{{ asset('js/botao/confirmacao.js') }}"></script>
 @endsection
