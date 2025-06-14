@@ -6,7 +6,7 @@
                 <p class="text-gray-400 text-sm mt-1">Sistema de gestão interna</p>
             </div>
             <div class="flex space-x-6 mt-6 md:mt-0">
-                <a href="#" class="text-gray-300 hover:text-white transition">Sobre</a>
+                <a href="#" class="text-gray-300 hover:text-white transition">Manual do Utilizador</a>
                 <a href="#" class="text-gray-300 hover:text-white transition">Contato</a>
                 <a href="#" class="text-gray-300 hover:text-white transition">Política</a>
             </div>

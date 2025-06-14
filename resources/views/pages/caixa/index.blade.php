@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Relatórios de Faturas</h2>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Relatórios de Faturação</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
 
