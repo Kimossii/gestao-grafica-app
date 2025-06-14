@@ -7,10 +7,10 @@ Este sistema foi desenvolvido com o framework Laravel e tem como objetivo fornec
 
 ## 🧰 Tecnologias Utilizadas
 
-- Laravel 10+
-- PHP 8+
+- Laravel 12
+- PHP 8.2
 - MySQL
-- Bootstrap ou TailwindCSS 
+- TailwindCSS 
 - Blade Templates
 - Eloquent ORM
 - Auth com Laravel Breeze 
@@ -70,26 +70,38 @@ O sistema oferece relatórios gerenciais com filtros por período:
   - Exportação em PDF/Excel (Em desenvolvimento)
 
 ## Instalação
-
-- git clone https://https://github.com/Kimossii/gestaografica.git
+```bash
+- git clone https://github.com/Kimossii/gestao-grafica-app.git
 - cd seu-projeto
 - composer install
 - cp .env.example .env
 - php artisan key:generate
 - php artisan migrate
+- php artisan db:seed
+- npm run dev
+- npm run build
 - php artisan serve
+```
+#### O projeto estará acessível em: http://localhost:8000
+
 ##### NB: Alterar os dados das tuas credencias do Banco de Dodos com base as configuranções da tua máquina. 
 ##
 
 
+## 🔐 Acesso
+O sistema usa autenticação.
 
-
+* Email:teste@gmail.com
+* Senha: 111111
 ## 🧪 Testes
 
 Para rodar os testes:
 ```bash
 php artisan test
 ```
+## 🤝 Contribuição
+Pull requests são bem-vindos! Para grandes mudanças, por favor abra uma issue primeiro para discutir o que você gostaria de mudar.
+
 ## 📞 Contato
 - Para dúvidas, sugestões ou contribuições, entre em contato pelo
 - **Email:** eluckimossi@gmail.com  
