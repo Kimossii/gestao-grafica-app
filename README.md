@@ -1,23 +1,5 @@
-<p align="center">
-  <a href="https://laravel.com" target="_blank">
-    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
-  </a>
-</p>
+![Dashboard do Sistema](public/images/gitt.png)
 
-<p align="center">
-  <a href="https://github.com/laravel/framework/actions">
-    <img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status">
-  </a>
-  <a href="https://packagist.org/packages/laravel/framework">
-    <img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads">
-  </a>
-  <a href="https://packagist.org/packages/laravel/framework">
-    <img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version">
-  </a>
-  <a href="https://packagist.org/packages/laravel/framework">
-    <img src="https://img.shields.io/packagist/l/laravel/framework" alt="License">
-  </a>
-</p>
 
 # Sistema de Gestão de uma Gráfica (Laravel)
 
@@ -32,6 +14,12 @@ Este sistema foi desenvolvido com o framework Laravel e tem como objetivo fornec
 - Blade Templates
 - Eloquent ORM
 - Auth com Laravel Breeze 
+## 📦 Módulos
+- Gestão de clientes e fornecedores  
+- Emissão de faturas, recibos e fluxo de caixa  
+- Controle de contas a pagar e a receber  
+- Cadastro de produtos, serviços e categorias  
+- Gestão de usuários  
 
 ## ✅ Requisitos Funcionais
 
@@ -70,14 +58,14 @@ O sistema possui os seguintes módulos de gestão:
 
 O sistema oferece relatórios gerenciais com filtros por período:
 
-- **Relatório de Vendas**
+- **Relatório de Vendas em desenvolvimento**
   - Diário
   - Semanal
   - Mensal
   - Semestral
   - Anual
 
-- **Relatório de Caixa**
+- **Relatório de Caixa em desenvolvimento**
   - Total de entradas e saídas por tipo de transação
   - Exportação em PDF/Excel (Em desenvolvimento)
 
@@ -90,11 +78,10 @@ O sistema oferece relatórios gerenciais com filtros por período:
 - php artisan key:generate
 - php artisan migrate
 - php artisan serve
+##### NB: Alterar os dados das tuas credencias do Banco de Dodos com base as configuranções da tua máquina. 
 ##
 
-## ✉️ Contato
-- Para dúvidas, sugestões ou contribuições, entre em contato pelo
-- ** Email: eluckimossi@gmail.com
+
 
 
 ## 🧪 Testes
@@ -102,4 +89,10 @@ O sistema oferece relatórios gerenciais com filtros por período:
 Para rodar os testes:
 ```bash
 php artisan test
+```
+## 📞 Contato
+- Para dúvidas, sugestões ou contribuições, entre em contato pelo
+- **Email:** eluckimossi@gmail.com  
+- **LinkedIn:** [Eluki Júnior](https://www.linkedin.com/in/eluki-baptista/)  
+- **GitHub:** [Eluki Júnior](https://github.com/Kimossii) 
 
